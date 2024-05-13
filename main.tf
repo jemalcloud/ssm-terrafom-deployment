@@ -17,13 +17,6 @@ module "key_pair" {
   create_private_key = true
 }
 
-// Use local provisioner to write the public key to a .pem file
-resource "null_resource" "write_public_key" {
-
-  provisioner "local-exec" {
-    command = "echo '${module.key_pair.public_key_pem}' > ${module.key_pair.key_pair_name}.pem"
-  }
-}
 
 resource "aws_ssm_parameter" "ssm_ec2_keypair" {
   name        = var.ssm_parameter_path
@@ -44,5 +37,5 @@ resource "aws_instance" "example" {
   // Add other configurations for your instance as needed
 
   // Depend on the null_resource to ensure the provisioner runs first
-  depends_on = [null_resource.write_public_key]
+  //depends_on = [null_resource.write_public_key]
 }
