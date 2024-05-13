@@ -3,7 +3,7 @@
 
 [squareops_avatar]: https://squareops.com/wp-content/uploads/2022/12/squareops-logo.png
 
-### [SquareOps Technologies](https://squareops.com/) Your DevOps Partner for Accelerating cloud journey.
+### [ShegerOps Technologies](https://cloudsheger.com/) Your DevOps Partner for Accelerating cloud journey.
 <br>
 
 This module is a reusable Terraform module that simplifies the creation and management of an EC2 key pair on AWS. This module creates an EC2 key pair and securely stores the private key in the AWS Systems Manager Parameter Store (SSM). The module also returns the key pair name and the SSM parameter ARN for later use in other resources, making it easy to reference the key pair in other parts of your infrastructure. Using this module can help you save time and effort in managing your key pairs while ensuring security and compliance in your AWS environment.
@@ -12,13 +12,13 @@ This module is a reusable Terraform module that simplifies the creation and mana
 
 ```hcl
 module "key_pair" {
-  source = "squareops/keypair/aws"
-  key_name           = "example-key"
-  environment        = "production"
-  ssm_parameter_path = "production-example-key"
+  source             = "terraform-aws-modules/key-pair/aws"
+  version            = "2.0.0"
+  key_name           = format("%s-%s-kp", local.environment, local.name)
+  create_private_key = true
 }
 ```
-Refer [this](https://github.com/squareops/terraform-aws-keypair/tree/main/examples) for more examples.
+Refer [this](https://github.com/jemalcloud/ssm-terrafom-deployment/tree/simplified-ssh-creation/examples) for more examples.
 
 
 ## Retrieve Private Key
@@ -26,6 +26,8 @@ Refer [this](https://github.com/squareops/terraform-aws-keypair/tree/main/exampl
 To Retrieve the Private key from SSM:
 ```bash
 aws ssm get-parameter --name "<ssm_parameter_path>" --region "<region>" --query Parameter.Value --output text
+
+Example : 
 aws ssm get-parameter --name "/devstation/ssm" --region "us-east-1" --query Parameter.Value --output text
 
 or 
@@ -37,11 +39,12 @@ Additionally, to save the private key to a file:
 ```bash
 aws ssm get-parameter --name "<ssm_parameter_path>" --region "<region>" --with-decryption --query Parameter.Value --output text > keypair.pem
 
+Example : 
 aws ssm get-parameter --name "/devstation/ssm" --region "us-east-1" --with-decryption --query Parameter.Value --output text > keypair.pem
 ```
 
 ## IAM Permission
-The required IAM permissions to create resources from this module can be found [here](https://github.com/squareops/terraform-aws-keypair/blob/main/IAM.md)
+The required IAM permissions to create resources from this module can be found [here](https://github.com/jemalcloud/ssm-terrafom-deployment/blob/simplified-ssh-creation/IAM.md)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -91,7 +94,7 @@ The required IAM permissions to create resources from this module can be found [
 
 To report an issue with a project:
 
-  1. Check the repository's [issue tracker](https://github.com/squareops/terraform-aws-keypair/issues) on GitHub
+  1. Check the repository's [issue tracker](https://github.com/jemalcloud/ssm-terrafom-deployment/issues) on GitHub
   2. Search to see if the issue has already been reported
   3. If you can't find an answer to your question in the documentation or issue tracker, you can ask a question by creating a new issue. Make sure to provide enough context and details .
 
@@ -103,7 +106,7 @@ Apache License, Version 2.0, January 2004 (http://www.apache.org/licenses/).
 
 To support a GitHub project by liking it, you can follow these steps:
 
-  1. Visit the repository: Navigate to the [GitHub repository](https://github.com/squareops/terraform-aws-keypair)
+  1. Visit the repository: Navigate to the [GitHub repository](https://github.com/jemalcloud/ssm-terrafom-deployment)
 
   2. Click the "Star" button: On the repository page, you'll see a "Star" button in the upper right corner. Clicking on it will star the repository, indicating your support for the project.
 
@@ -122,6 +125,6 @@ We believe that the key to success in the digital age is the ability to deliver 
   5. Platform engineering which supports scalable,Cost efficient infrastructure that supports rapid development, testing, and deployment.
   6. 24*7 SRE service to help you Monitor the state of your infrastructure and eradicate any issue within the SLA.
 
-We provide [support](https://squareops.com/contact-us/) on all of our projects, no matter how small or large they may be.
+We provide [support](https://cloudsheger.com/contact-us/) on all of our projects, no matter how small or large they may be.
 
-To find more information about our company, visit [squareops.com](https://squareops.com/), follow us on [Linkedin](https://www.linkedin.com/company/squareops-technologies-pvt-ltd/), or fill out a [job application](https://squareops.com/careers/). If you have any questions or would like assistance with your cloud strategy and implementation, please don't hesitate to [contact us](https://squareops.com/contact-us/).
+To find more information about our company, visit [shegerops.com](https://cloudsheegr.com/), follow us on [Linkedin](https://www.linkedin.com/company/cloudsheger.com/), or fill out a [job application](https://cloudsheger.com/careers/). If you have any questions or would like assistance with your cloud strategy and implementation, please don't hesitate to [contact us](https://cloudsheger.com/contact-us/).
