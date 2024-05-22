@@ -37,7 +37,8 @@ Additionally, to save the private key to a file:
 ```bash
 aws ssm get-parameter --name "<ssm_parameter_path>" --region "<region>" --with-decryption --query Parameter.Value --output text > keypair.pem
 
-aws ssm get-parameter --name "/devstation/ssm" --region "us-east-1" --with-decryption --query Parameter.Value --output text > keypair.pem
+aws ssm get-parameter --name "/devstation/sshkey/jemal.mohammed" --region "us-east-1" --with-decryption --query Parameter.Value --output text > keypair.pem
+
 ```
 
 ## IAM Permission

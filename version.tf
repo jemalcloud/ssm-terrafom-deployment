@@ -10,5 +10,7 @@ terraform {
       source  = "hashicorp/tls"
       version = ">= 3.4"
     }
+    # Remove the hashicorp/template provider
   }
 }
+
